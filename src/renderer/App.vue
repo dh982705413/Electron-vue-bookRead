@@ -5,8 +5,12 @@
 </template>
 
 <script>
+const fs = require('fs')
 export default {
-  name: 'app'
+  name: 'app',
+  mounted() {
+    fs.mkdir('book')
+  }
 }
 </script>
 

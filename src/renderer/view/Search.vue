@@ -16,6 +16,11 @@
           </a-menu>
         </a-dropdown>
       </template>
+      <template #downloadBook>
+        <a-button type="primary" @click="$router.push('/books')">
+          <a-icon type="book" /> 查看已下载书籍
+        </a-button>
+      </template>
     </search-input>
     <ul class="book-list">
       <li
@@ -23,7 +28,7 @@
         :key="book.id"
         class="book-item"
         :class="{ co2: isDouble }"
-        @click="$router.push({ name: 'detail', params: { book } })"
+        @click="goBookDeatil(book)"
       >
         <div class="img-wapper">
           <img v-lazy="book.bookPic" alt="" />
@@ -78,23 +83,35 @@ export default {
   },
   methods: {
     async onSearch() {
-      const { data: res } = await this.$http.get(`/api/search/v3`, {
-        params: {
-          q: this.keyword
+      const { data: res } = await this.$http.get(
+        `https://www.shiyisoushu.com/api/search/v3`,
+        {
+          params: {
+            q: this.keyword
+          }
         }
-      })
+      )
       this.current = 1
       this.searchList = res.content
       this.total = res.totalElements
     },
     async onChange() {
-      const { data: res } = await this.$http.get(`/api/search/v3`, {
-        params: {
-          q: this.keyword,
-          pageNo: this.current - 1
+      const { data: res } = await this.$http.get(
+        `https://www.shiyisoushu.com/api/search/v3`,
+        {
+          params: {
+            q: this.keyword,
+            pageNo: this.current - 1
+          }
         }
-      })
+      )
       this.searchList = res.content
+    },
+    goBookDeatil(book) {
+      this.$router.push({
+        name: 'detail',
+        params: { book: JSON.stringify(book) }
+      })
     }
   }
 }
@@ -148,7 +165,7 @@ export default {
       }
     }
     .co2 {
-      width: 480px;
+      width: 460px;
     }
   }
   .pagination {

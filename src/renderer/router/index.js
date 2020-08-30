@@ -15,6 +15,16 @@ export default new Router({
       name: 'detail',
       props: true,
       component: () => import('@/view/Detail.vue')
+    },
+    {
+      path: '/books',
+      name: 'books',
+      component: () => import('@/view/Book.vue')
+    },
+    {
+      path: '/bookDetail',
+      name: 'bookDetail',
+      component: () => import('@/view/BookDetail.vue')
     }
   ]
 })

@@ -1,15 +1,18 @@
 <template>
   <div class="search-input">
-    <slot>
-      <a-input-search
-        placeholder="请输入书名或作者的关键字"
-        enter-button
-        @search="onSearch"
-        :value="keyword"
-        @input="$emit('input', $event.target.value)"
-        :class="'input-size-' + size"
-      />
-    </slot>
+    <div>
+      <slot>
+        <a-input-search
+          placeholder="请输入书名或作者的关键字"
+          enter-button
+          @search="onSearch"
+          :value="keyword"
+          @input="$emit('input', $event.target.value)"
+          :class="'input-size-' + size"
+        />
+      </slot>
+      <slot name="downloadBook"></slot>
+    </div>
     <div>
       <slot name="rightMenu"></slot>
     </div>
@@ -46,6 +49,7 @@ export default {
   padding: 0 20px;
   background-color: #ffffff;
   border-bottom: 2px solid $inputBorder;
+  z-index: 999;
   .input-size-mini {
     width: 300px;
   }

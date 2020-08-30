@@ -72,16 +72,6 @@ function startRenderer() {
     const server = new WebpackDevServer(compiler, {
       contentBase: path.join(__dirname, '../'),
       quiet: true,
-      proxy: {
-        '/api': {
-          target: 'https://www.shiyisoushu.com',
-          changeOrigin: true,
-          secure: false,
-          pathRewrite: {
-            '^/api': ''
-          }
-        }
-      },
       before(app, ctx) {
         app.use(hotMiddleware)
         ctx.middleware.waitUntilValid(() => {
